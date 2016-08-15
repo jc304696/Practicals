@@ -1,0 +1,5 @@
+file_name = input("what's the file name? ")
+open_file = open(file_name, mode='r')
+name = open_file.read().strip()
+print("your name is ",name)
+open_file.close()

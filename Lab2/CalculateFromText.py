@@ -1,0 +1,6 @@
+file_name = input("what's the file name? ")
+open_file = open(file_name, mode='r')
+num1 = int(open_file.readline())
+num2 = int(open_file.readline())
+print(num1 + num2)
+open_file.close()
