@@ -7,7 +7,7 @@ File and class example - opens/reads a file, stores in objects of custom class
 import csv
 from collections import namedtuple
 
-from Practicals2016_master.Prac08.programming_language import ProgrammingLanguage
+from Lab8.Practicals2016_master.Prac08.programming_language import ProgrammingLanguage
 
 __author__ = 'Lindsay Ward'
 
