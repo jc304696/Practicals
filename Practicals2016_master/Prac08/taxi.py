@@ -2,7 +2,7 @@
 CP1404/CP5632 Practical
 Car class
 """
-import random
+
 
 class Car:
     """ represent a car object """
@@ -15,9 +15,6 @@ class Car:
 
     def __str__(self):
         return "{}, fuel={}, odo={}".format(self.name, self.fuel, self.odometer)
-
-    def __repr__(self):
-        return str(self)
 
     def add_fuel(self, amount):
         """ add amount to the car's fuel"""
@@ -38,20 +35,20 @@ class Car:
 
 class Taxi(Car):
     """ specialised version of a Car that includes fare costs """
-    price_per_km = 1.20
-    def __init__(self, name, fuel):
+
+    def __init__(self, name, fuel, price_per_km):
         """ initialise a Taxi instance, based on parent class Car """
         super().__init__(name, fuel)
+        self.price_per_km = price_per_km
         self.current_fare_distance = 0
 
     def __str__(self):
         """ return a string representation like a car but with current fare distance"""
-        return "{}, {}km on current fare, ${:.2f}/km".format(super().__str__(), self.current_fare_distance,
-                                                             Taxi.price_per_km)
+        return "{}, {}km on current fare, ${:.2f}/km".format(super().__str__(), self.current_fare_distance, self.price_per_km)
 
     def get_fare(self):
         """ get the price for the taxi trip """
-        return Taxi.price_per_km * self.current_fare_distance
+        return self.price_per_km * self.current_fare_distance
 
     def start_fare(self):
         """ begin a new fare """
@@ -61,33 +58,4 @@ class Taxi(Car):
         """ drive like parent Car but calculate fare distance as well"""
         distance_driven = super().drive(distance)
         self.current_fare_distance += distance_driven
-        return distance_driven
-
-
-class SilverServiceTaxi(Taxi):
-    flagfall = 4.50  # $4.50 for every new fare
-    def __init__(self, name, fuel, fanciness=0.0):
-        super().__init__(name, fuel)
-        self.price_per_km = fanciness * Taxi.price_per_km
-
-    def __str__(self):
-        """ return a string representation like a car but with current fare distance"""
-        return "{}, {}km on current fare, ${:.2f}/km plus flagfall of $4.50".format(Car.__str__(self),
-                                                self.current_fare_distance, self.price_per_km)
-
-    def get_fare(self):
-        return float((self.price_per_km * self.current_fare_distance) + SilverServiceTaxi.flagfall)
-
-
-class UnreliableCar(Car):
-    def __init__(self, name, fuel, reliability):
-        super().__init__(name, fuel)
-        self.reliability = reliability
-
-    def drive(self, distance):
-        reliability_number = random.randrange(101)
-        if reliability_number < self.reliability:
-            distance_driven = super().drive(distance)
-        else:
-            distance_driven = 0
         return distance_driven
